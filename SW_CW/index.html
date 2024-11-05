@@ -10,30 +10,65 @@
         <h1>User Information Form</h1>
         <form name="myform" >
 
-            <label for="name">First Name:</label><br>
-            <input type="text" name="name" id="name" required ><br>
 
-            <label for="name2">Second Name:</label><br>
-            <input type="text" name="name2" id="name2" required ><br>
+            <label for="title">Title:</label><br>
+            <select id="titleDrop">
+                <option value="">Select a title</option>
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Miss">Miss</option>
+                <option value="Ms">Ms</option>
+                <option value="Dr">Dr</option>
+                <option value="Prof">Prof</option>
+                <option value="Sir">Sir</option>
+              </select><br>
+
+            <br>
+            <label for="name">First Name:</label><br>
+            <input type="text" name="name" id="name" required >
+            <span id="name_message"></span>
+            <br>
+
+            <br>
+            <label for="surname">Second Name:</label><br>
+            <input type="text" name="surname" id="surname" required >
+            <span id="surname_message"></span>
+            <br>
             
+            <br>
             <label for="email">Email:</label><br>
-            <input type="email" name="email" id="email" required ><br>
+            <input type="email" name="email" id="email" required >
+            <span id="email_message"></span>
+            <br>
             
+            <br>
             <label for="age">Age:</label><br>
-            <input type="number" name="age" id="age"  required ><br>
+            <input type="number" name="age" id="age"  required >
+            <span id="age_message"></span>
+            <br>
             
+            <br>
             <label for="date">Date of Birth:</label><br>
-            <input type="date" name="dateofbirth" id="dateofbirth" min="1900-01-01" max="2024-12-31" required ><br>
+            <input type="date" name="date" id="date" min="1900-01-01" required >
+            <span id="dob_message"></span>
+            <br>
+
+            <br>
             <!-- the country dropdown menu gets populated with a function in the JS file -->
             <label for="countryDropdown">Country of Birth:</label><br>
             <select id="countryDropdown">
                 <option value="">Select a country</option>
-              </select><br
+              </select><br>
             
+            <br>
             <label for="check">Accecept Terms:</label><br>
-            <input type="checkbox" name="check" id="check" required ><br>
+            <input type="checkbox" name="check" id="check" required >
+            <span id="checkB_message"></span>
+            <br>
 
-            <input type="submit" value="Submit" ><br>
+            <br>
+            <button type="button" onclick="validateForm();">Submit</button>
+            <br>
         </form>
     </div>
     <script src="form_data.js"></script>
