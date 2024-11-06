@@ -1,5 +1,6 @@
 let form = document.getElementsByTagName("form")[0];
 
+// test function to check if the form is valid
 function test(message, assertion) {
     try {
         const result = assertion();
@@ -17,6 +18,7 @@ function test(message, assertion) {
     `);
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const countryDropdown = document.getElementById("countryDropdown");
