@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>User Validation Form</title>
 </head>
 <body>
-    <div style="padding: 1rem 1rem;">
+    <div>
         <h1>User Information Form</h1>
         <form name="myform" >
 
@@ -24,25 +25,25 @@
               </select><br>
 
             <br>
-            <label for="name">First Name:</label><br>
+            <label for="name" data-instruction="Only Enter Letters, No numbers or Special Characters eg(1,2,3,£,&,*,!)" >First Name:</label><br>
             <input type="text" name="name" id="name" required >
             <span id="name_message"></span>
             <br>
 
             <br>
-            <label for="surname">Second Name:</label><br>
+            <label for="surname" data-instruction="Only Enter Letters, No numbers or Special Characters eg(1,2,3,£,&,*,!)" >Last Name:</label><br>
             <input type="text" name="surname" id="surname" required >
             <span id="surname_message"></span>
             <br>
             
             <br>
-            <label for="email">Email:</label><br>
+            <label for="email" data-instruction="Example Email - (john.smith@example.com)">Email:</label><br>
             <input type="email" name="email" id="email" required >
             <span id="email_message"></span>
             <br>
             
             <br>
-            <label for="age">Age:</label><br>
+            <label for="age" data-instruction="Valid is age between 1-120">Age:</label><br>
             <input type="number" name="age" id="age"  required >
             <span id="age_message"></span>
             <br>
@@ -61,7 +62,7 @@
               </select><br>
             
             <br>
-            <label for="check">Accecept Terms:</label><br>
+            <label for="check">Accept Terms:</label><br>
             <input type="checkbox" name="check" id="check" required >
             <span id="checkB_message"></span>
             <br>

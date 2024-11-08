@@ -84,10 +84,14 @@ function checkAge(x){
 
 
 function checkName(x){
-    if (x === "" || x === null || /\d/.test(x) || x.length < 2){
-        console.log(x);
-        console.log("Invalid Input: Enter a name")
+    if (x === "" || x === null){
         return "Invalid Input: Enter a name"
+    } else if (x.length > 30){
+        return "Invalid Input: Name too long"
+    } else if (x.length < 2){
+        return "Invalid Input: Name too short"
+    } else if (/\d/.test(x)){
+        return "Invalid Input: Name cannot contain numbers"
     }
 };
 
@@ -135,6 +139,25 @@ test('calculate for negative age', () => {
     const res= checkAge(age);
     return res === 'Invalid Input: Enter non negative age';
 });
+
+test('Check that name does not have numbers', () => {
+    const name = "123";
+    const res = checkName(name);
+    return res === 'Invalid Input: Enter a name';
+});
+
+test('Check that name is not empty', () => {
+    const name = "";
+    const res = checkName(name);
+    return res === 'Invalid Input: Enter a name';
+});
+
+test('Check that name is not too long', () => {
+    const name = "abcdefghijklmnopqrstuvwxyzabcde"; // 31 characters to test the limit
+    const res = checkName(name);
+    return res === 'Invalid Input: Name too long';
+});
+
 
 
 

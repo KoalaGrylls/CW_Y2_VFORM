@@ -1,0 +1,152 @@
+
+/* Reset styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Background styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ccd3d6;
+    color: #333;
+}
+
+
+/* Form container */
+form {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 100%;
+    min-width: 50%;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+
+/* Heading styling */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 2.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Label styling */
+label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 0.1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Tooltip styling on hover */
+label:hover::after {
+    content: attr(data-instruction);/* Add the data-instruction attribute as content so users know what to put in the feilds*/
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-top: 4px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1;
+}
+
+/* Make tooltip visible on hover */
+label:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Input styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fafafa;
+    color: #333;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #999;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background-color: #2170bb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Error or message text */
+span {
+    font-size: 12px;
+    color: #d9534f;
+}
+
+/* Select dropdown styling */
+select {
+    appearance: none;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+/* Checkbox label alignment */
+label[for="check"] {
+    display: flex;
+    align-items: center;
+}
+
