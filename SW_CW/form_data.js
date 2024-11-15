@@ -139,11 +139,21 @@ function dateToday() { // this function get the current date and formats it to a
 }
 
 function checkDOB(x) {
+    const day = document.getElementById('dob-day').value;
+    const month = document.getElementById('dob-month').value;
+    const year = document.getElementById('dob-year').value;
     const today = dateToday();
-    const userDate = Number(x.replace(/-/g, ""));// this conerts the date to a number so i can compare with the current date
-    console.log(today);
+    const userDate =  `${year.padStart(4, '0')}${month.padStart(2, '0')}${day.padStart(2, '0')}`;// this conerts the date to a number so i can compare with the current date
     if (userDate > today) {
         return "Invalid Input: Date of birth cannot be in the future"
+    }
+
+    if (userDate === today) {
+        return "Invalid Input: Date of birth cannot be today"
+    }
+
+    if (userDate < 19000101) {
+        return "Invalid Input: Date of birth cannot be before 1900"
     }
 }
 

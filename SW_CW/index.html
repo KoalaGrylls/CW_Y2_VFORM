@@ -49,9 +49,12 @@
             <br>
             
             <!-- make DOB 3 feilds to be gds standard -->
-            <br>
             <label for="date">Date of Birth:</label><br>
-            <input type="date" name="date" id="date" min="1900-01-01" required >
+            <div id="date">
+                <input type="text" name="dob-day" id="dob-day" placeholder="DD" maxlength="2" pattern="\d{1,2}" required>
+                <input type="text" name="dob-month" id="dob-month" placeholder="MM" maxlength="2" pattern="\d{1,2}" required>
+                <input type="text" name="dob-year" id="dob-year" placeholder="YYYY" maxlength="4" pattern="\d{4}" required>
+            </div>
             <span id="dob_message"></span>
             <br>
 

@@ -84,7 +84,6 @@ label:hover::after {
 input[type="text"],
 input[type="email"],
 input[type="number"],
-input[type="date"],
 select {
     width: 100%;
     padding: 10px;
@@ -100,7 +99,6 @@ select {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
-input[type="date"]:focus,
 select:focus {
     border-color: #999;
     outline: none;
@@ -111,6 +109,38 @@ select:focus {
 input[type="checkbox"] {
     margin-right: 10px;
 }
+
+#date {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* Adds spacing between the inputs */
+}
+
+#date input {
+    width: 50px;
+    text-align: center; 
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#date input#dob-year {
+    width: 70px; 
+}
+
+#dob_message {
+    margin-left: 10px; 
+    color: red; 
+    font-size: 0.9rem;
+}
+
+
+label[for="date"] {
+    margin-right: 10px; /* Space between the label and inputs */
+    font-size: 1rem;
+}
+
 
 /* Button styling */
 button {
