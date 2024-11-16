@@ -1,12 +1,14 @@
 {
-  "name": "learning-jest",
+  "name": "my-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "form_data.js",
+  "description": "A simple Node.js project",
+  "main": "server.js",
   "scripts": {
-    "test": "jest --coverage"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {}
 }

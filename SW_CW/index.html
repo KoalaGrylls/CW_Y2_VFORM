@@ -9,8 +9,7 @@
 <body>
     <div>
         <h1>User Information Form</h1>
-        <form name="myform" >
-
+        <form id="userForm">
 
             <label for="title">Title:</label><br>
             <select id="titleDrop">
@@ -22,59 +21,53 @@
                 <option value="Dr">Dr</option>
                 <option value="Prof">Prof</option>
                 <option value="Sir">Sir</option>
-              </select><br>
+            </select>
+            <br><br>
 
-            <br>
-            <label for="name" data-instruction="Only Enter Letters, No numbers or Special Characters eg(1,2,3,£,&,*,!)" >First Name:</label><br>
-            <input type="text" name="name" id="name" required >
-            <span id="name_message"></span>
-            <br>
+            <label for="name" data-instruction="Only Enter Letters, No numbers or Special Characters (e.g., 1, 2, 3, £, &, *, !)">First Name:</label><br>
+            <input type="text" name="name" id="name" required>
+            <span id="name_message" class="error-message"></span>
+            <br><br>
 
-            <br>
-            <label for="surname" data-instruction="Only Enter Letters, No numbers or Special Characters eg(1,2,3,£,&,*,!)" >Last Name:</label><br>
-            <input type="text" name="surname" id="surname" required >
-            <span id="surname_message"></span>
-            <br>
-            
-            <br>
+            <label for="surname" data-instruction="Only Enter Letters, No numbers or Special Characters (e.g., 1, 2, 3, £, &, *, !)">Last Name:</label><br>
+            <input type="text" name="surname" id="surname" required>
+            <span id="surname_message" class="error-message"></span>
+            <br><br>
+
             <label for="email" data-instruction="Example Email - (john.smith@example.com)">Email:</label><br>
-            <input type="email" name="email" id="email" required >
-            <span id="email_message"></span>
-            <br>
-            
-            <br>
-            <label for="age" data-instruction="Valid is age between 1-120">Age:</label><br>
-            <input type="number" name="age" id="age"  required >
-            <span id="age_message"></span>
-            <br>
-            
-            <!-- make DOB 3 feilds to be gds standard -->
+            <input type="email" name="email" id="email" required>
+            <span id="email_message" class="error-message"></span>
+            <br><br>
+
+            <label for="age" data-instruction="Valid age is between 1-120">Age:</label><br>
+            <input type="number" name="age" id="age" required>
+            <span id="age_message" class="error-message"></span>
+            <br><br>
+
             <label for="date">Date of Birth:</label><br>
             <div id="date">
                 <input type="text" name="dob-day" id="dob-day" placeholder="DD" maxlength="2" pattern="\d{1,2}" required>
                 <input type="text" name="dob-month" id="dob-month" placeholder="MM" maxlength="2" pattern="\d{1,2}" required>
                 <input type="text" name="dob-year" id="dob-year" placeholder="YYYY" maxlength="4" pattern="\d{4}" required>
             </div>
-            <span id="dob_message"></span>
-            <br>
+            <span id="dob_message" class="error-message"></span>
+            <br><br>
 
-            <br>
-            <!-- the country dropdown menu gets populated with a function in the JS file -->
             <label for="countryDropdown">Country of Birth:</label><br>
             <select id="countryDropdown">
                 <option value="">Select a country</option>
-              </select><br>
-            
-            <br>
-            <label for="check">Accept Terms:</label><br>
-            <input type="checkbox" name="check" id="check" required >
-            <span id="checkB_message"></span>
-            <br>
+            </select>
+            <span id="country_message" class="error-message"></span>
+            <br><br>
 
-            <br>
-            <button type="button" onclick="validateForm();">Submit</button>
-            <br>
+            <label for="check">Accept Terms:</label><br>
+            <input type="checkbox" name="check" id="check" required>
+            <span id="checkB_message" class="error-message"></span>
+            <br><br>
+
+            <button type="submit">Submit</button>
         </form>
+        <script src="form_data.js"></script>
     </div>
-    <script src="form_data.js"></script>
 </body>
+</html>
