@@ -38,9 +38,15 @@ function validateForm() {
     const email = document.getElementById("email").value;
     const age = document.getElementById("age").value;
     const check = document.getElementById("check").checked;
-    const date = document.getElementById("date").value;
+    // const date = document.getElementById("dob-year" + "dob-month" + "dob-day").value;
     const country = document.getElementById("countryDropdown").value;
-
+    const day = document.getElementById("dob-day").value;
+    const month = document.getElementById("dob-month").value;
+    const year = document.getElementById("dob-year").value;
+    const date = year + month + day;
+    console.log(month);
+    console.log(date);
+    
     // Display error messages for invalid inputs
     document.getElementById("age_message").textContent = checkAge(age);
     document.getElementById("name_message").textContent = checkName(name);
@@ -67,37 +73,14 @@ function validateForm() {
             date: date,
             country: country,
         };
-
-        // Save the data to the backend
-        fetch("/save_form_data", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Failed to save data");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Success:", data);
-                alert("Form submitted successfully!");
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                alert("An error occurred while submitting the form.");
-            });
-    } else {
-        alert("Please fix the errors in the form.");
+        saveData(formData);
     }
 }
 
 function checkAge(age) {
     if (age <= 0) return "Invalid Input: Enter non-negative age";
     if (age > 120) return "Invalid Input: Age too high";
+    if (/\D/.test(age)) return "Invalid Input: Age cannot contain letters";
     return "Pass";
 }
 
@@ -121,11 +104,22 @@ function checkBox(checked) {
     return "Pass";
 }
 
-function checkDOB(date) {
+function checkDOB(year, month, day) {
+    
+    if(( month === 0o2 && day > 29) || 
+    (month === 0o2 && day > 28) || 
+    (['04', '06', '09', '11'].includes(month) && day > 30) || 
+    (['01', '03', '05', '07', '08', '10', '12'].includes(month) && day > 31)) 
+    return "Invalid Input: Invalid date of birth";
+    
+    const date = year + month + day;
     const today = new Date();
-    const dob = new Date(date);
-    if (dob >= today) return "Invalid Input: Date of birth cannot be today or in the future";
-    if (dob.getFullYear() < 1900) return "Invalid Input: Date of birth cannot be before 1900";
+    const formattedToday = today.toISOString().split('T')[0].replace(/-/g, '');
+    console.log(formattedToday);
+    console.log(today.getFullYear());
+    if (date >= formattedToday) return "Invalid Input: Date of birth cannot be today or in the future";
+    if (date < 19000101) return "Invalid Input: Date of birth cannot be before 1900";
+
     return "Pass";
 }
 
