@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     form.addEventListener("submit", (event) => {
-        event.preventDefault(); // Prevent the default form submission
+        // event.preventDefault(); // Prevent the default form submission
         validateForm(); // Calls my validateForm function
     });
 
@@ -43,7 +43,6 @@ function validateForm() {
     const day = document.getElementById("dob-day").value;
     const month = document.getElementById("dob-month").value;
     const year = document.getElementById("dob-year").value;
-    const date = year + month + day;
     console.log(month);
     console.log(date);
     
@@ -53,7 +52,7 @@ function validateForm() {
     document.getElementById("surname_message").textContent = checkName(surname);
     document.getElementById("email_message").textContent = checkEmail(email);
     document.getElementById("checkB_message").textContent = checkBox(check);
-    document.getElementById("dob_message").textContent = checkDOB(date);
+    document.getElementById("dob_message").textContent = checkDOB(year, month, day);
 
     // If all validations pass, send data to be saved
     if (
@@ -89,29 +88,39 @@ function checkName(name) {
     if (name.length > 30) return "Invalid Input: Name too long";
     if (name.length < 2) return "Invalid Input: Name too short";
     if (/\d/.test(name)) return "Invalid Input: Name cannot contain numbers";
+    if (/\W/.test(name)) return "Invalid Input: Name cannot contain special characters";
+    if (name.includes(" ")) return "Invalid Input: Name cannot contain spaces";
     return "Pass";
 }
 
-function checkEmail(email) {
+function checkEmail(email) { 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email.length > 256) return "Invalid Input: Email too long";
     if (!email) return "Invalid Input: Email is empty";
-    if (!email.includes("@")) return "Invalid Input: Email has no @ symbol";
-    if (!email.includes(".")) return "Invalid Input: Email has no .";
+    if (!emailRegex.test(email)) return "Invalid Input: Email format is incorrect";
     return "Pass";
 }
 
-function checkBox(checked) {
+function checkBox(checked) { // simple check to see if the checkbox is checked
     if (!checked) return "You must agree to the terms and conditions";
     return "Pass";
 }
 
 function checkDOB(year, month, day) {
-    
+    // checking so day is not 29 except for leap year
     if(( month === 0o2 && day > 29) || 
     (month === 0o2 && day > 28) || 
     (['04', '06', '09', '11'].includes(month) && day > 30) || 
     (['01', '03', '05', '07', '08', '10', '12'].includes(month) && day > 31)) 
     return "Invalid Input: Invalid date of birth";
-    
+
+    // checks for year length, month and day not greater than 12 and 31 respectively
+    if (year.length < 4) return "Invalid Input: Year must be 4 digits";
+    if (month > 12) return "Invalid Input: Month cannot be greater than 12";
+    if (day > 31) return "Invalid Input: Day cannot be greater than 31";
+
+    // here i am converting the date to a string and removing the '-' and then comparing it to the current date
     const date = year + month + day;
     const today = new Date();
     const formattedToday = today.toISOString().split('T')[0].replace(/-/g, '');
@@ -123,7 +132,7 @@ function checkDOB(year, month, day) {
     return "Pass";
 }
 
-function nonEmptyCountry(country) {
+function nonEmptyCountry(country) {// basic check to see if the country is empty
     if (!country) return "Invalid Input: Please select a country";
     return "Pass";
 }
