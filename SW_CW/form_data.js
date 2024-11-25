@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://restcountries.com/v2/all")
         .then((response) => response.json())
         .then((data) => {
-            data.forEach((country) => {
+            data.forEach((country) => { // loops through all the countries and appends them to the dropdown
                 const option = document.createElement("option");
                 option.value = country.name;
                 option.text = country.name;
@@ -38,13 +38,11 @@ function validateForm() {
     const email = document.getElementById("email").value;
     const age = document.getElementById("age").value;
     const check = document.getElementById("check").checked;
-    // const date = document.getElementById("dob-year" + "dob-month" + "dob-day").value;
     const country = document.getElementById("countryDropdown").value;
     const day = document.getElementById("dob-day").value;
     const month = document.getElementById("dob-month").value;
     const year = document.getElementById("dob-year").value;
-    console.log(month);
-    console.log(date);
+
     
     // Display error messages for invalid inputs
     document.getElementById("age_message").textContent = checkAge(age);
@@ -61,7 +59,7 @@ function validateForm() {
         !checkName(surname) === "Pass" &&
         !checkEmail(email) === "Pass" &&
         !checkBox(check) === "Pass" &&
-        !checkDOB(date) === "Pass" &&
+        !checkDOB(year,month,day) === "Pass" &&
         !nonEmptyCountry(country) === "Pass" 
     ) {
         const formData = {
