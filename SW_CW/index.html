@@ -11,6 +11,7 @@
         <h1>User Information Form</h1>
         <form id="userForm">
 
+            <!-- Title -->
             <label for="title">Title:</label><br>
             <select id="titleDrop">
                 <option value="">Select a title</option>
@@ -24,26 +25,31 @@
             </select>
             <br><br>
 
+            <!-- First Name -->
             <label for="name" data-instruction="Only Enter Letters, No numbers or Special Characters (e.g., 1, 2, 3, £, &, *, !)">First Name:</label><br>
             <input type="text" name="name" id="name" required>
             <span id="name_message" class="error-message"></span>
             <br><br>
 
+            <!-- Last Name -->
             <label for="surname" data-instruction="Only Enter Letters, No numbers or Special Characters (e.g., 1, 2, 3, £, &, *, !)">Last Name:</label><br>
             <input type="text" name="surname" id="surname" required>
             <span id="surname_message" class="error-message"></span>
             <br><br>
 
+            <!-- Email -->
             <label for="email" data-instruction="Example Email - (john.smith@example.com)">Email:</label><br>
             <input type="email" name="email" id="email" required>
             <span id="email_message" class="error-message"></span>
             <br><br>
 
+            <!-- Age -->
             <label for="age" data-instruction="Valid age is between 1-120">Age:</label><br>
             <input type="number" name="age" id="age" required>
             <span id="age_message" class="error-message"></span>
             <br><br>
 
+            <!-- Date of Birth -->
             <label for="date">Date of Birth:</label><br>
             <div id="date">
                 <input type="text" name="dob-day" id="dob-day" placeholder="DD" maxlength="2" pattern="\d{1,2}" required>
@@ -53,6 +59,7 @@
             <span id="dob_message" class="error-message"></span>
             <br><br>
 
+            <!-- Country of Birth -->
             <label for="countryDropdown">Country of Birth:</label><br>
             <select id="countryDropdown">
                 <option value="">Select a country</option>
@@ -60,6 +67,7 @@
             <span id="country_message" class="error-message"></span>
             <br><br>
 
+            <!-- Check Box -->
             <label for="check" data-instruction="Please check before submiting" >Accept Terms:</label><br>
             <input type="checkbox" name="check" id="check" required>
             <span id="checkB_message" class="error-message"></span>

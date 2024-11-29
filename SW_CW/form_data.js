@@ -7,8 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     form.addEventListener("submit", (event) => {
-        // event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); // Prevent the default form submission
         validateForm(); // Calls my validateForm function
+        if (validateForm() === true) {
+            window.location.href = "veri.html";
+        }
     });
 
     const countryDropdown = document.getElementById("countryDropdown");
@@ -32,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function validateForm() {
+    canSubmit = false;
     // Get the input elements and their values
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
@@ -51,30 +55,27 @@ function validateForm() {
     document.getElementById("email_message").textContent = checkEmail(email);
     document.getElementById("checkB_message").textContent = checkBox(check);
     document.getElementById("dob_message").textContent = checkDOB(year, month, day);
+    document.getElementById("dob_message").textContent = ageDOBCheck(age, year, month, day);
 
-    // If all validations pass, send data to be saved
-    if (
-        !checkAge(age) === "Pass" &&
-        !checkName(name) === "Pass"  &&
-        !checkName(surname) === "Pass" &&
-        !checkEmail(email) === "Pass" &&
-        !checkBox(check) === "Pass" &&
-        !checkDOB(year,month,day) === "Pass" &&
-        !nonEmptyCountry(country) === "Pass" 
-    ) {
-        const formData = {
-            name: name,
-            surname: surname,
-            email: email,
-            age: age,
-            date: date,
-            country: country,
-        };
-        saveData(formData);
+    // If all validations pass, send data to be saved and send user to splash page
+    try {
+        (
+            checkAge(age) === "Pass" &&
+            checkName(name) === "Pass"  &&
+            checkName(surname) === "Pass" &&
+            checkEmail(email) === "Pass" &&
+            checkBox(check) === "Pass" &&
+            checkDOB(year,month,day) === "Pass" 
+        ) ? canSubmit = true : canSubmit = false;
+    } catch (error) {
+        console.error("Error validating form:", error);
     }
+    return canSubmit;
+    
 }
 
 function checkAge(age) {
+
     if (age <= 0) return "Invalid Input: Enter non-negative age";
     if (age > 120) return "Invalid Input: Age too high";
     if (/\D/.test(age)) return "Invalid Input: Age cannot contain letters";
@@ -91,7 +92,7 @@ function checkName(name) {
     return "Pass";
 }
 
-function checkEmail(email) { 
+function checkEmail(email) { // checks if the email is validm uses a regex and checks the length
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email.length > 256) return "Invalid Input: Email too long";
@@ -119,6 +120,8 @@ function checkDOB(year, month, day) {
     if (day > 31) return "Invalid Input: Day cannot be greater than 31";
 
     // here i am converting the date to a string and removing the '-' and then comparing it to the current date
+    if (month.length === 1) month = '0' + month;// pad the day and month with a 0 so i can compare them to the current date
+    if (day.length === 1) day = '0' + day;
     const date = year + month + day;
     const today = new Date();
     const formattedToday = today.toISOString().split('T')[0].replace(/-/g, '');
@@ -130,7 +133,29 @@ function checkDOB(year, month, day) {
     return "Pass";
 }
 
-function nonEmptyCountry(country) {// basic check to see if the country is empty
+function nonEmptyCountry(country) {// Basic check to see if the country is empty.
     if (!country) return "Invalid Input: Please select a country";
     return "Pass";
 }
+
+function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches age.
+    const today = new Date();
+    const birthDate = new Date(year, month - 1, day);
+    console.log(birthDate);
+    console.log(today);
+    const ageDiff = today.getFullYear() - birthDate.getFullYear();
+    console.log(ageDiff);
+    if (ageDiff != age) return "Invalid Input: Age does not match date of birth";
+    return "Pass";
+}
+
+function runAnotherFile(filePath) {// This is to get the form_test.js file and run it.
+    const script = document.createElement("script");
+    script.src = filePath;
+    script.type = "text/javascript";
+    script.onload = () => console.log(`${filePath} loaded successfully.`);
+    script.onerror = () => console.error(`Error loading ${filePath}.`);
+    document.head.appendChild(script);
+}
+
+runAnotherFile("form_test.js");
