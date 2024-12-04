@@ -82,14 +82,14 @@ function test(message, assertion) {
 
     // Tests for DOB function
     test('Check that DOB is not empty', () => {
-        const year = "";
-        const month = "";
-        const day = "";
+        const year = " ";
+        const month = " ";
+        const day = " ";
         const res = checkDOB(year, month, day);
         return res === 'Invalid Input: Date of Birth is empty';
     });
 
-    test('Check that Day in DOB is possible', () => {
+    test('Check that Day is valid', () => {
         const year = "2020";
         const month = "02";
         const day = "30";

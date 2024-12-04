@@ -56,6 +56,7 @@ function validateForm() {
     document.getElementById("checkB_message").textContent = checkBox(check);
     document.getElementById("dob_message").textContent = checkDOB(year, month, day);
     document.getElementById("dob_message").textContent = ageDOBCheck(age, year, month, day);
+    document.getElementById("country_message").textContent = nonEmptyCountry(country);
 
     // If all validations pass, send data to be saved and send user to splash page
     try {
@@ -107,9 +108,12 @@ function checkBox(checked) { // simple check to see if the checkbox is checked
 }
 
 function checkDOB(year, month, day) {
+    if (month.length === 1) month = '0' + month;// pad the day and month with a 0 so i can compare them to the current date
+    if (day.length === 1) day = '0' + day;
+    console.log(day);
+    console.log(month);
     // checking so day is not 29 except for leap year
-    if(( month === 0o2 && day > 29) || 
-    (month === 0o2 && day > 28) || 
+    if(( ['02'].includes(month) && day >= 30) || 
     (['04', '06', '09', '11'].includes(month) && day > 30) || 
     (['01', '03', '05', '07', '08', '10', '12'].includes(month) && day > 31)) 
     return "Invalid Input: Invalid date of birth";
@@ -118,11 +122,10 @@ function checkDOB(year, month, day) {
     if (year.length < 4) return "Invalid Input: Year must be 4 digits";
     if (month > 12) return "Invalid Input: Month cannot be greater than 12";
     if (day > 31) return "Invalid Input: Day cannot be greater than 31";
-
-    // here i am converting the date to a string and removing the '-' and then comparing it to the current date
-    if (month.length === 1) month = '0' + month;// pad the day and month with a 0 so i can compare them to the current date
-    if (day.length === 1) day = '0' + day;
+    console.log(day);
+    // here I convert the date to a string and removing the '-' and then comparing it to the current date
     const date = year + month + day;
+    console.log(date);
     const today = new Date();
     const formattedToday = today.toISOString().split('T')[0].replace(/-/g, '');
     console.log(formattedToday);
@@ -149,7 +152,7 @@ function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches 
     return "Pass";
 }
 
-function runAnotherFile(filePath) {// This is to get the form_test.js file and run it.
+function runAnotherFile(filePath) {// This is to get the form_test.js file and run my unit tests.
     const script = document.createElement("script");
     script.src = filePath;
     script.type = "text/javascript";
