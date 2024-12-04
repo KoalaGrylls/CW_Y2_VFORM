@@ -55,7 +55,7 @@ function validateForm() {
     document.getElementById("email_message").textContent = checkEmail(email);
     document.getElementById("checkB_message").textContent = checkBox(check);
     document.getElementById("dob_message").textContent = checkDOB(year, month, day);
-    document.getElementById("dob_message").textContent = ageDOBCheck(age, year, month, day);
+    // document.getElementById("dob_message").textContent = ageDOBCheck(age, year, month, day); // need to give this a differnt message
     document.getElementById("country_message").textContent = nonEmptyCountry(country);
 
     // If all validations pass, send data to be saved and send user to splash page
@@ -108,32 +108,84 @@ function checkBox(checked) { // simple check to see if the checkbox is checked
 }
 
 function checkDOB(year, month, day) {
-    if (month.length === 1) month = '0' + month;// pad the day and month with a 0 so i can compare them to the current date
-    if (day.length === 1) day = '0' + day;
-    console.log(day);
-    console.log(month);
-    // checking so day is not 29 except for leap year
-    if(( ['02'].includes(month) && day >= 30) || 
-    (['04', '06', '09', '11'].includes(month) && day > 30) || 
-    (['01', '03', '05', '07', '08', '10', '12'].includes(month) && day > 31)) 
-    return "Invalid Input: Invalid date of birth";
+    // Convert inputs to integers for validation
+    year = parseInt(year, 10);
+    month = parseInt(month, 10);
+    day = parseInt(day, 10);
 
-    // checks for year length, month and day not greater than 12 and 31 respectively
-    if (year.length < 4) return "Invalid Input: Year must be 4 digits";
-    if (month > 12) return "Invalid Input: Month cannot be greater than 12";
-    if (day > 31) return "Invalid Input: Day cannot be greater than 31";
-    console.log(day);
-    // here I convert the date to a string and removing the '-' and then comparing it to the current date
-    const date = year + month + day;
-    console.log(date);
+    // Validate year, month, and day ranges
+    if (!year || !month || !day) {
+        return "Invalid Input: Year, month, and day must be provided";
+    }
+    if (year.toString().length !== 4 || year < 1900) {
+        return "Invalid Input: Year must be a 4-digit number and not before 1900";
+    }
+    if (month < 1 || month > 12) {
+        return "Invalid Input: Month must be between 1 and 12";
+    }
+    if (day < 1 || day > 31) {
+        return "Invalid Input: Day must be between 1 and 31";
+    }
+
+    console.log(year, month, day);
+
+    // Validate February dates for leap years
+    if (month === 2) {
+        // console.log("Checking February leap year");
+        const isLeap = checkLeapYear(year);
+        console.log(`Day: ${day}, Is Leap: ${isLeap}, Year: ${year}`);
+    
+        if (day > 29) {
+            // console.log("Day exceeds 29 for February");
+            return "Not a leap year, February can't have more than 29 days";
+        }
+    
+        if (day === 29 && !isLeap) {
+            console.log("29th February on a non-leap year");
+            return "Not a leap year, February can't have 29 days";
+        }
+    }
+
+    // Validate day for months with 30 days
+    if (!isValidDate(day, month)) {
+        return "Invalid Input: Invalid date";
+    }
+
+    // Validate the date using Date object
+    const inputDate = new Date(year, month - 1, day); 
+    if (
+        inputDate.getFullYear() !== year ||
+        inputDate.getMonth() + 1 !== month ||
+        inputDate.getDate() !== day
+    ) {
+        return "Invalid Input: Invalid date";
+    }
+
+    // Validate against today's date
     const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0].replace(/-/g, '');
-    console.log(formattedToday);
-    console.log(today.getFullYear());
-    if (date >= formattedToday) return "Invalid Input: Date of birth cannot be today or in the future";
-    if (date < 19000101) return "Invalid Input: Date of birth cannot be before 1900";
+    if (inputDate >= today) {
+        return "Invalid Input: Date of birth cannot be today or in the future";
+    }
 
-    return "Pass";
+    console.log("Validation passed");
+    return "Pas";
+}
+
+function checkLeapYear(year) {
+    // Returns true if the year is a leap year
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
+
+function isValidDate(day, month) {// Each number has a key value pair to check if the day is valid for the month.
+    const daysInMonth = {
+        1: 31, 2: 29, 3: 31, 4: 30,
+        5: 31, 6: 30, 7: 31, 8: 31,
+        9: 30, 10: 31, 11: 30, 12: 31
+    };
+    if (!daysInMonth[month] || day > daysInMonth[month]) {
+        return false;
+    }
+    return true;
 }
 
 function nonEmptyCountry(country) {// Basic check to see if the country is empty.
@@ -144,10 +196,10 @@ function nonEmptyCountry(country) {// Basic check to see if the country is empty
 function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches age.
     const today = new Date();
     const birthDate = new Date(year, month - 1, day);
-    console.log(birthDate);
-    console.log(today);
+    // console.log(birthDate);
+    // console.log(today);
     const ageDiff = today.getFullYear() - birthDate.getFullYear();
-    console.log(ageDiff);
+    // console.log(ageDiff);
     if (ageDiff != age) return "Invalid Input: Age does not match date of birth";
     return "Pass";
 }

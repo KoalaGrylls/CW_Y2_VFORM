@@ -26,7 +26,12 @@ function test(message, assertion) {
     test('calculate for negative age', () => {
         const age = "-1";
         const res = checkAge(age);
-        return res === 'Invalid Input: Enter non negative age';
+        return res === 'Invalid Input: Enter non-negative age';
+    });
+    test('Test for age with letters', () => {
+        const age = "e";
+        const res = checkAge(age);
+        return res === 'Invalid Input: Age cannot contain letters';
     });
 
 
@@ -34,7 +39,7 @@ function test(message, assertion) {
     test('Check that name does not have numbers', () => {
         const name = "123";
         const res = checkName(name);
-        return res === 'Invalid Input: Enter a name';
+        return res === 'Invalid Input: Name cannot contain numbers';
     });
     
     test('Check that name is not empty', () => {
@@ -44,7 +49,7 @@ function test(message, assertion) {
     });
     
     test('Check that name is not too long', () => {
-        const name = "abcdefghijklmnopqrstuvwxyzabcde"; // 31 characters to test the limit
+        const name = "a".repeat(31); // 31 characters to test the limit
         const res = checkName(name);
         return res === 'Invalid Input: Name too long';
     });
@@ -53,6 +58,12 @@ function test(message, assertion) {
         const name = "a"; // 1 character to test the limit
         const res = checkName(name);
         return res === 'Invalid Input: Name too short';
+    });
+
+    test('Check that name does not have special characters', () => {
+        const name = "a@";
+        const res = checkName(name);
+        return res === 'Invalid Input: Name cannot contain special characters';
     });
 
     // Tests for checkEmail function
@@ -80,20 +91,65 @@ function test(message, assertion) {
         return res === 'Invalid Input: Email format is incorrect';
     });
 
-    // Tests for DOB function
+    test('Check that email is with spaces', () => {
+        const email = "test @test.com";
+        const res = checkEmail(email);
+        return res === 'Invalid Input: Email format is incorrect';
+    });
+
+    //Tests for DOB function
     test('Check that DOB is not empty', () => {
-        const year = " ";
-        const month = " ";
-        const day = " ";
+        const year = NaN;
+        const month = NaN;
+        const day = NaN;
         const res = checkDOB(year, month, day);
-        return res === 'Invalid Input: Date of Birth is empty';
+        return res === "Invalid Input: Year, month, and day must be provided";
+    });
+
+    test('Check that leap year is valid', () => {
+        const year = "2023";
+        const month = "02";
+        const day = "29";
+        const res = checkDOB(year, month, day);
+        return res;
+    });
+
+    test('Check that Month is valid', () => {
+        const year = "2023";
+        const month = "22";
+        const day = "29";
+        const res = checkDOB(year, month, day);
+        return res === "Invalid Input: Month must be between 1 and 12";
+    });
+
+    test('Check that Year is valid', () => {
+        const year = "202";
+        const month = "04";
+        const day = "23";
+        const res = checkDOB(year, month, day);
+        return res === "Invalid Input: Year must be a 4-digit number and not before 1900";
     });
 
     test('Check that Day is valid', () => {
-        const year = "2020";
-        const month = "02";
-        const day = "30";
+        const year = "2023";
+        const month = "04";
+        const day = "32";
         const res = checkDOB(year, month, day);
-        return res === 'Invalid Input: Invalid date of birth';
+        return res === "Invalid Input: Day must be between 1 and 31";
+    });
+
+    test('Check that day cant be negative', () => {
+        const year = "2023";
+        const month = "04";
+        const day = "-1";
+        const res = checkDOB(year, month, day);
+        return res === "Invalid Input: Day must be between 1 and 31";
+    });
+
+    // Tests for checkBox function
+    test('Check that checkbox is checked', () => {
+        const checked = false;
+        const res = checkBox(checked);
+        return res === "You must agree to the terms and conditions";
     });
         
