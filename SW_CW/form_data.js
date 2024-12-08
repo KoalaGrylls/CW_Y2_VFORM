@@ -168,7 +168,7 @@ function checkDOB(year, month, day) {
     }
 
     console.log("Validation passed");
-    return "Pas";
+    return "Pass";
 }
 
 function checkLeapYear(year) {
