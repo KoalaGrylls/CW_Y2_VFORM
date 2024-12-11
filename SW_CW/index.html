@@ -12,8 +12,8 @@
         <form id="userForm">
 
             <!-- Title -->
-            <label for="title">Title:</label><br>
-            <select id="titleDrop">
+            <label for="title" data-instruction="Choose your Valid Title">Title:</label><br>
+            <select id="title">
                 <option value="">Select a title</option>
                 <option value="Mr">Mr</option>
                 <option value="Mrs">Mrs</option>
@@ -23,6 +23,7 @@
                 <option value="Prof">Prof</option>
                 <option value="Sir">Sir</option>
             </select>
+            <span id="title_message" class="error-message"></span>
             <br><br>
 
             <!-- First Name -->
@@ -50,17 +51,18 @@
             <br><br>
 
             <!-- Date of Birth -->
-            <label for="date">Date of Birth:</label><br>
+            <label for="date" data-instruction="Make Sure Date Macthes Age and is Valid">Date of Birth:</label><br>
             <div id="date">
                 <input type="text" name="dob-day" id="dob-day" placeholder="DD" maxlength="2" pattern="\d{1,2}" required>
                 <input type="text" name="dob-month" id="dob-month" placeholder="MM" maxlength="2" pattern="\d{1,2}" required>
                 <input type="text" name="dob-year" id="dob-year" placeholder="YYYY" maxlength="4" pattern="\d{4}" required>
             </div>
             <span id="dob_message" class="error-message"></span>
+            <span id="age_dob_message" class="error-message"></span>
             <br><br>
 
             <!-- Country of Birth -->
-            <label for="countryDropdown">Country of Birth:</label><br>
+            <label for="countryDropdown" data-instruction="Choose a Country, Do Not Leave Empty">Country of Birth:</label><br>
             <select id="countryDropdown">
                 <option value="">Select a country</option>
             </select>

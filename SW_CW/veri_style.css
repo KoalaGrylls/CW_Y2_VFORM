@@ -16,3 +16,26 @@ h1 {
     color: #333; /* Optional: dark gray text color */
     text-align: center;
 }
+/* Button styling */
+button {
+    width: 20%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    position: absolute;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+button:hover {
+    background-color: #2170bb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+}

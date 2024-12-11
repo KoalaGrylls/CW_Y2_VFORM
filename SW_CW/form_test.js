@@ -15,7 +15,6 @@ function test(message, assertion) {
     `);
     }
 }
-
     // Tests for checkAge function
     test('calculate for high age', () => {
         const age = "1000";
@@ -33,7 +32,6 @@ function test(message, assertion) {
         const res = checkAge(age);
         return res === 'Invalid Input: Age cannot contain letters';
     });
-
 
     // Tests for checkName function
     test('Check that name does not have numbers', () => {
@@ -146,10 +144,86 @@ function test(message, assertion) {
         return res === "Invalid Input: Day must be between 1 and 31";
     });
 
+    // Tests for checkLeapYear function
+    test('Check that leap year is valid', () => {
+        const year = "2020";
+        const res = checkLeapYear(year);
+        return res;
+    });
+
+    test('Check that leap year is invalid', () => {
+        const year = "2023";
+        const res = checkLeapYear(year);
+        return res === false;
+    });
+
+    test('Check that leap year is invalid', () => {
+        const year = "-2021";
+        const res = checkLeapYear(year);
+        return res === false;
+    });
+   
+    // Tests for isValidDate function
+    test('Check that date is valid', () => {
+        const month = "4";
+        const day = "28";
+        const res = isValidDate(day, month);
+        return res === true;
+    });
+    test('Check that date is invalid', () => {
+        const month = "4";
+        const day = "31";
+        const res = isValidDate(day, month);
+        return res === false;
+    });
+
+    // Tests for ageDOBcheck function
+    test('Check that age is valid', () => {
+        const year = "2000";
+        const month = "04";
+        const day = "28";
+        const age = "21";
+        const res = ageDOBCheck(age, year, month, day);
+        return res;
+    });
+
+    test('Check that age is invalid', () => {
+        const year = "2000";
+        const month = "04";
+        const day = "28";
+        const age = "20";
+        const res = ageDOBCheck(year, month, day, age);
+        return res === "Invalid Input: Age does not match date of birth";
+    });
+
+    // Test for nonEmptyCountry function
+    test('Check for when country is empty', () => {
+        const country = "";
+        const res = nonEmptyCountry(country);
+        return res === "Invalid Input: Please select a country";
+    });
+
+    test('Check for when country is not empty', () => {
+        const country = "United Kingdom";
+        const res = nonEmptyCountry(country);
+        return res === "";
+    });
+
     // Tests for checkBox function
     test('Check that checkbox is checked', () => {
         const checked = false;
         const res = checkBox(checked);
         return res === "You must agree to the terms and conditions";
     });
-        
+
+    // Tests for checkTitle function
+    test('Check that title is empty', () => {
+        const title = "";
+        const res = checkTitle(title);
+        return res === "Invalid Input: Please select a title";
+    });
+    test('Check that title is not empty', () => {
+        const title = "Mr";
+        const res = checkTitle(title);
+        return res === "";
+    });

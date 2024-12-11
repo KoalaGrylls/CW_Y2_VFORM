@@ -1,3 +1,34 @@
+/* 
+Title: Validation Form Coursework for Software Development
+Author: Ryan Bradshaw ()
+Date: 2024
+
+This file is used to validate the form data that is entered by the user. 
+It checks the data against a set of rules and returns an error message if the data is invalid. 
+
+Here are the functions i created for this file:
+1. validateForm: This function is called when the user submits the form. It gets the form data and calls other functions to validate the data.
+2. checkAge: This function checks if the age is valid.  
+3. checkName: This function checks if the name is valid.
+4. checkEmail: This function checks if the email is valid. 
+5. checkBox: This function checks if the checkbox is checked.
+6. checkDOB: This function checks if the date of birth is valid. 
+7. checkLeapYear: This function checks if the year is a leap year.
+8. isValidDate: This function checks if the day is valid for the month.
+9. nonEmptyCountry: This function checks if the country is selected.
+10. ageDOBCheck: This function checks if the age matches the date of birth.
+11. runAnotherFile: This function loads another JavaScript file and runs the unit tests in that file.
+
+I have added helpful error messages to guide the user on what they need to correct.
+Users can also see messages when they hover of the title of the input field.
+
+I have also created a splash page that the user is redirected to if the form data is valid.
+Users are then allowed to submit another form if they wish to do so.
+
+I made CSS files for both the form and the splash page to make them look more visually appealing.
+Though i could have put the files in one CSS file, i decided to keep them separate for better organization.
+*/
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("userForm");
     if (!form) {
@@ -46,6 +77,7 @@ function validateForm() {
     const day = document.getElementById("dob-day").value;
     const month = document.getElementById("dob-month").value;
     const year = document.getElementById("dob-year").value;
+    const title = document.getElementById("title").value;
 
     
     // Display error messages for invalid inputs
@@ -55,18 +87,20 @@ function validateForm() {
     document.getElementById("email_message").textContent = checkEmail(email);
     document.getElementById("checkB_message").textContent = checkBox(check);
     document.getElementById("dob_message").textContent = checkDOB(year, month, day);
-    // document.getElementById("dob_message").textContent = ageDOBCheck(age, year, month, day); // need to give this a differnt message
+    document.getElementById("age_dob_message").textContent = ageDOBCheck(age, year, month, day);
     document.getElementById("country_message").textContent = nonEmptyCountry(country);
+    document.getElementById("title_message").textContent = checkTitle(title);
 
-    // If all validations pass, send data to be saved and send user to splash page
+    // If all validations pass, send data to be saved and send user to splash page,
+    // I made the String empty so that it would not display the error message.
     try {
         (
-            checkAge(age) === "Pass" &&
-            checkName(name) === "Pass"  &&
-            checkName(surname) === "Pass" &&
-            checkEmail(email) === "Pass" &&
-            checkBox(check) === "Pass" &&
-            checkDOB(year,month,day) === "Pass" 
+            checkAge(age) === "" &&
+            checkName(name) === ""  &&
+            checkName(surname) === "" &&
+            checkEmail(email) === "" &&
+            checkBox(check) === "" &&
+            checkDOB(year,month,day) === "" 
         ) ? canSubmit = true : canSubmit = false;
     } catch (error) {
         console.error("Error validating form:", error);
@@ -75,12 +109,17 @@ function validateForm() {
     
 }
 
+function checkTitle(title) {
+    if (!title) return "Invalid Input: Please select a title";
+    return "";
+}
+
 function checkAge(age) {
 
     if (age <= 0) return "Invalid Input: Enter non-negative age";
     if (age > 120) return "Invalid Input: Age too high";
     if (/\D/.test(age)) return "Invalid Input: Age cannot contain letters";
-    return "Pass";
+    return "";
 }
 
 function checkName(name) {
@@ -90,7 +129,7 @@ function checkName(name) {
     if (/\d/.test(name)) return "Invalid Input: Name cannot contain numbers";
     if (/\W/.test(name)) return "Invalid Input: Name cannot contain special characters";
     if (name.includes(" ")) return "Invalid Input: Name cannot contain spaces";
-    return "Pass";
+    return "";
 }
 
 function checkEmail(email) { // checks if the email is validm uses a regex and checks the length
@@ -99,12 +138,12 @@ function checkEmail(email) { // checks if the email is validm uses a regex and c
     if (email.length > 256) return "Invalid Input: Email too long";
     if (!email) return "Invalid Input: Email is empty";
     if (!emailRegex.test(email)) return "Invalid Input: Email format is incorrect";
-    return "Pass";
+    return "";
 }
 
 function checkBox(checked) { // simple check to see if the checkbox is checked
     if (!checked) return "You must agree to the terms and conditions";
-    return "Pass";
+    return "";
 }
 
 function checkDOB(year, month, day) {
@@ -127,21 +166,18 @@ function checkDOB(year, month, day) {
         return "Invalid Input: Day must be between 1 and 31";
     }
 
-    console.log(year, month, day);
+    // for testing purposes
+    // console.log(year, month, day);
 
     // Validate February dates for leap years
     if (month === 2) {
-        // console.log("Checking February leap year");
         const isLeap = checkLeapYear(year);
-        console.log(`Day: ${day}, Is Leap: ${isLeap}, Year: ${year}`);
     
         if (day > 29) {
-            // console.log("Day exceeds 29 for February");
             return "Not a leap year, February can't have more than 29 days";
         }
     
         if (day === 29 && !isLeap) {
-            console.log("29th February on a non-leap year");
             return "Not a leap year, February can't have 29 days";
         }
     }
@@ -168,11 +204,11 @@ function checkDOB(year, month, day) {
     }
 
     console.log("Validation passed");
-    return "Pass";
+    return "";
 }
 
 function checkLeapYear(year) {
-    // Returns true if the year is a leap year
+    // Returns true if the year is a leap year, false otherwise
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
@@ -190,7 +226,7 @@ function isValidDate(day, month) {// Each number has a key value pair to check i
 
 function nonEmptyCountry(country) {// Basic check to see if the country is empty.
     if (!country) return "Invalid Input: Please select a country";
-    return "Pass";
+    return "";
 }
 
 function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches age.
@@ -201,7 +237,7 @@ function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches 
     const ageDiff = today.getFullYear() - birthDate.getFullYear();
     // console.log(ageDiff);
     if (ageDiff != age) return "Invalid Input: Age does not match date of birth";
-    return "Pass";
+    return "";
 }
 
 function runAnotherFile(filePath) {// This is to get the form_test.js file and run my unit tests.
