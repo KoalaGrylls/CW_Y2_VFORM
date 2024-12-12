@@ -1,6 +1,6 @@
 /* 
 Title: Validation Form Coursework for Software Development
-Author: Ryan Bradshaw ()
+Author: Ryan Bradshaw (33751409)
 Date: 2024
 
 This file is used to validate the form data that is entered by the user. 
@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     form.addEventListener("submit", (event) => {
-        event.preventDefault(); // Prevent the default form submission
-        validateForm(); // Calls my validateForm function
+        event.preventDefault(); // Prevent the default form submission.
+        validateForm(); // Calls my validateForm function.
         if (validateForm() === true) {
             window.location.href = "veri.html";
         }
@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Populate the country dropdown using the REST Countries API
+    // Populate the country dropdown using the REST Countries API.
     fetch("https://restcountries.com/v2/all")
         .then((response) => response.json())
         .then((data) => {
-            data.forEach((country) => { // loops through all the countries and appends them to the dropdown
+            data.forEach((country) => { // loops through all the countries and appends them to the dropdown.
                 const option = document.createElement("option");
                 option.value = country.name;
                 option.text = country.name;
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function validateForm() {
     canSubmit = false;
-    // Get the input elements and their values
+    // Get the input elements and their values.
     const name = document.getElementById("name").value;
     const surname = document.getElementById("surname").value;
     const email = document.getElementById("email").value;
@@ -80,7 +80,7 @@ function validateForm() {
     const title = document.getElementById("title").value;
 
     
-    // Display error messages for invalid inputs
+    // Display error messages for invalid inputs.
     document.getElementById("age_message").textContent = checkAge(age);
     document.getElementById("name_message").textContent = checkName(name);
     document.getElementById("surname_message").textContent = checkName(surname);
@@ -100,21 +100,26 @@ function validateForm() {
             checkName(surname) === "" &&
             checkEmail(email) === "" &&
             checkBox(check) === "" &&
-            checkDOB(year,month,day) === "" 
+            checkDOB(year,month,day) === "" &&
+            ageDOBCheck(age, year, month, day) === "" &&
+            nonEmptyCountry(country) === "" &&
+            checkTitle(title) === ""
         ) ? canSubmit = true : canSubmit = false;
     } catch (error) {
         console.error("Error validating form:", error);
     }
+
+    // add data to local storage
     return canSubmit;
     
 }
 
-function checkTitle(title) {
+function checkTitle(title) {// Checks if the title is valid, uses a simple check to see if the title is empty.
     if (!title) return "Invalid Input: Please select a title";
     return "";
 }
 
-function checkAge(age) {
+function checkAge(age) {// Checks if the age is valid, uses regex to check for letters and special characters.
 
     if (age <= 0) return "Invalid Input: Enter non-negative age";
     if (age > 120) return "Invalid Input: Age too high";
@@ -122,7 +127,7 @@ function checkAge(age) {
     return "";
 }
 
-function checkName(name) {
+function checkName(name) {// Checks if the name is valid, uses regex to check for numbers and special characters.
     if (!name) return "Invalid Input: Enter a name";
     if (name.length > 30) return "Invalid Input: Name too long";
     if (name.length < 2) return "Invalid Input: Name too short";
@@ -132,7 +137,7 @@ function checkName(name) {
     return "";
 }
 
-function checkEmail(email) { // checks if the email is validm uses a regex and checks the length
+function checkEmail(email) { // checks if the email is validm uses a regex and checks the length.
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email.length > 256) return "Invalid Input: Email too long";
@@ -141,18 +146,18 @@ function checkEmail(email) { // checks if the email is validm uses a regex and c
     return "";
 }
 
-function checkBox(checked) { // simple check to see if the checkbox is checked
+function checkBox(checked) { // simple check to see if the checkbox is checked.
     if (!checked) return "You must agree to the terms and conditions";
     return "";
 }
 
 function checkDOB(year, month, day) {
-    // Convert inputs to integers for validation
+    // Convert inputs to integers for validation.
     year = parseInt(year, 10);
     month = parseInt(month, 10);
     day = parseInt(day, 10);
 
-    // Validate year, month, and day ranges
+    // Validate year, month, and day ranges.
     if (!year || !month || !day) {
         return "Invalid Input: Year, month, and day must be provided";
     }
@@ -166,10 +171,7 @@ function checkDOB(year, month, day) {
         return "Invalid Input: Day must be between 1 and 31";
     }
 
-    // for testing purposes
-    // console.log(year, month, day);
-
-    // Validate February dates for leap years
+    // Validate February dates for leap years.
     if (month === 2) {
         const isLeap = checkLeapYear(year);
     
@@ -182,12 +184,12 @@ function checkDOB(year, month, day) {
         }
     }
 
-    // Validate day for months with 30 days
+    // Validate day for months with 30 days.
     if (!isValidDate(day, month)) {
         return "Invalid Input: Invalid date";
     }
 
-    // Validate the date using Date object
+    // Validate the date using Date object.
     const inputDate = new Date(year, month - 1, day); 
     if (
         inputDate.getFullYear() !== year ||
@@ -197,8 +199,10 @@ function checkDOB(year, month, day) {
         return "Invalid Input: Invalid date";
     }
 
-    // Validate against today's date
+    // Validate against today's date.
     const today = new Date();
+    console.log(today);
+    console.log(inputDate);
     if (inputDate >= today) {
         return "Invalid Input: Date of birth cannot be today or in the future";
     }
@@ -208,7 +212,7 @@ function checkDOB(year, month, day) {
 }
 
 function checkLeapYear(year) {
-    // Returns true if the year is a leap year, false otherwise
+    // Returns true if the year is a leap year, false otherwise.
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
@@ -232,10 +236,8 @@ function nonEmptyCountry(country) {// Basic check to see if the country is empty
 function ageDOBCheck(age, year, month, day) {// This is to check if DoB matches age.
     const today = new Date();
     const birthDate = new Date(year, month - 1, day);
-    // console.log(birthDate);
-    // console.log(today);
     const ageDiff = today.getFullYear() - birthDate.getFullYear();
-    // console.log(ageDiff);
+
     if (ageDiff != age) return "Invalid Input: Age does not match date of birth";
     return "";
 }
