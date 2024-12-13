@@ -146,9 +146,9 @@ function test(message, assertion) {
 
     // Tests for checkLeapYear function
     test('Check that leap year is valid', () => {
-        const year = "2020";
+        const year = 2020;
         const res = checkLeapYear(year);
-        return res;
+        return res === true;
     });
 
     test('Check that leap year is invalid', () => {

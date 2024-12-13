@@ -1,41 +1,68 @@
-/* Center the message on the page */
+/* Center the body content */
 body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; 
-    align-items: center;    
-    height: 100vh;          
-    font-family: 'Roboto', sans-serif; 
-    background-color: #ccd3d6; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ccd3d6;
+    color: #333; /* General text color */
 }
 
 /* Style the heading */
 h1 {
     font-size: 2rem;
-    color: #333; /* Optional: dark gray text color */
+    margin-bottom: 20px;
     text-align: center;
+    color: #333;
 }
+
+/* Container for submitted data */
+div {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 30px;
+    
+}
+
+/* Style for the paragraph elements */
+p {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Style for labels (strong elements) */
+p strong {
+    font-weight: bold;
+    color: #555;
+}
+
 /* Button styling */
 button {
-    width: 20%;
+    width: 200px;
     padding: 12px;
     border: none;
     border-radius: 5px;
     background-color: #333;
-    color: #ffffff;
+    color: #fff;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, box-shadow 0.2s;
-    position: absolute;
-    bottom: 40%;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 20px;
+    position: relative;
+    top: -10px;
 }
 
 button:hover {
     background-color: #2170bb;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    
 }

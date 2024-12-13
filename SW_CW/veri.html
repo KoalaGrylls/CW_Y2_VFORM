@@ -4,12 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="veri_style.css">
-    <title>Submission page</title>
+    <title>Form Data Confirmation</title>
 </head>
 <body>
-    <h1>Form Submitted</h1>
+    <h1>Submitted Data</h1>
+    <button type="button" id="another_form" onclick="location.href='index.html'">Submit Another Form</button>
+    <div>
+        <p><strong>Title:</strong> <span id="displayTitle"></span></p>
+        <p><strong>Name:</strong> <span id="displayName"></span></p>
+        <p><strong>Surname:</strong> <span id="displaySurname"></span></p>
+        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+        <p><strong>Age:</strong> <span id="displayAge"></span></p>
+        <p><strong>Country:</strong> <span id="displayCountry"></span></p>
+        <p><strong>Date of Birth:</strong> <span id="displayDOB"></span></p>
+    </div>
 
+    <script>
+        // Retrieve the stored form data from sessionStorage
+        const savedData = JSON.parse(sessionStorage.getItem("formData"));
 
+        if (savedData) {
+            document.getElementById("displayTitle").textContent = savedData.title;
+            document.getElementById("displayName").textContent = savedData.name;
+            document.getElementById("displaySurname").textContent = savedData.surname;
+            document.getElementById("displayEmail").textContent = savedData.email;
+            document.getElementById("displayAge").textContent = savedData.age;
+            document.getElementById("displayCountry").textContent = savedData.country;
+            
+            // Format and display Date of Birth
+            document.getElementById("displayDOB").textContent = `${savedData.day}/${savedData.month}/${savedData.year}`;
+        } else {
+            document.body.innerHTML = "<h2>No data found. Please submit the form first.</h2>";
+        }
+    </script>
 </body>
-<button type="button" id="another_form" onclick="location.href='index.html'">Submit Another Form</button>
 </html>

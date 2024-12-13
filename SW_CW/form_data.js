@@ -27,6 +27,8 @@ Users are then allowed to submit another form if they wish to do so.
 
 I made CSS files for both the form and the splash page to make them look more visually appealing.
 Though i could have put the files in one CSS file, i decided to keep them separate for better organization.
+
+Finally i 
 */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -109,7 +111,24 @@ function validateForm() {
         console.error("Error validating form:", error);
     }
 
-    // add data to local storage
+    // Save form data to sessionStorage if all validations pass.
+    if (canSubmit) {
+        const formData = {
+            name,
+            surname,
+            email,
+            age,
+            country,
+            day,
+            month,
+            year,
+            title,
+        };
+
+        sessionStorage.setItem("formData", JSON.stringify(formData));
+        console.log("Form data saved to sessionStorage:", formData);
+    }
+
     return canSubmit;
     
 }
@@ -176,11 +195,11 @@ function checkDOB(year, month, day) {
         const isLeap = checkLeapYear(year);
     
         if (day > 29) {
-            return "Not a leap year, February can't have more than 29 days";
+            return "Invalid Input: Not a leap year, February can't have more than 29 days";
         }
     
         if (day === 29 && !isLeap) {
-            return "Not a leap year, February can't have 29 days";
+            return "Invalid Input: Not a leap year, February can't have 29 days";
         }
     }
 
